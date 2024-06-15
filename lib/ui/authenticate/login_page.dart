@@ -232,8 +232,10 @@
 //   }
 // }
 
+import 'package:astrocom/controller/login_page_controller.dart';
 import 'package:astrocom/routes/app_routes.dart';
 import 'package:astrocom/utils/app_colors.dart';
+import 'package:astrocom/utils/constants.dart';
 import 'package:astrocom/utils/dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -245,18 +247,22 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var loginController = Get.find<LoginPageController>();
     return Scaffold(
-      backgroundColor: Colors.yellow,
+      backgroundColor: Colors.yellowAccent,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Spacer(),
-            Image.asset(
-              'assets/images/astro_star.png',
-              // Make sure to add a relevant image in assets and update the path
-              height: Dimensions.height140,
+            Hero(
+              tag: "splash_icon",
+              child: Image.asset(
+                'assets/images/astro_star.png',
+                // Make sure to add a relevant image in assets and update the path
+                height: Dimensions.height140,
+              ),
             ),
             SizedBox(height: Dimensions.height20),
             Text(
@@ -284,6 +290,7 @@ class LoginPage extends StatelessWidget {
                       hintText: 'Phone number',
                     ),
                     keyboardType: TextInputType.phone,
+                      controller: loginController.number
                   ),
                 ),
               ],
@@ -291,6 +298,7 @@ class LoginPage extends StatelessWidget {
             SizedBox(height: Dimensions.height20),
             ElevatedButton(
               onPressed: () {
+                _number = loginController.number.text;
                 // Handle OTP generation
                 Get.toNamed(AppRoutes.getVerifyOtpPage(_number));
               },
@@ -303,18 +311,19 @@ class LoginPage extends StatelessWidget {
                     horizontal: Dimensions.width30),
               ),
             ),
+            SizedBox(height: Dimensions.height45),
+            TextFormField(
+              controller: loginController.cookies,
+            ),
+            ElevatedButton(onPressed: () {
+              AppConstants.cookies = loginController.cookies.text;
+            }, child: Text("Cookies set"),),
             Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 InfoColumn(
                   label: '100% Privacy',
-                ),
-                InfoColumn(
-                  label: '10000+ Top astrologers of India',
-                ),
-                InfoColumn(
-                  label: '3Cr+ Happy customers',
                 ),
               ],
             ),
@@ -337,9 +346,9 @@ class _CountryCodePickerState extends State<CountryCodePicker> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: Dimensions.width30 * 3,
+      width: Dimensions.width30 * 3 +Dimensions.width15,
       height: Dimensions.height30 * 2,
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: EdgeInsets.symmetric(horizontal: Dimensions.width10, vertical: Dimensions.height10/2),
       decoration: BoxDecoration(
         border: Border.all(),
         borderRadius: BorderRadius.circular(Dimensions.height15),
@@ -388,7 +397,7 @@ class InfoColumn extends StatelessWidget {
     return RichText(
       text: TextSpan(
         style: TextStyle(
-          fontSize: Dimensions.fonts20 / 3,
+          fontSize: Dimensions.fonts20 /2,
           color: AppColors.mainBlackColor,
         ),
         children: <TextSpan>[

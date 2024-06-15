@@ -11,9 +11,15 @@ class LivePageController extends GetxController {
   Future<dynamic> getUsers() async {
 
     try {
+      Map<String ,String> headers = {
+        "Cookie":AppConstants.cookies,
+        "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+      };
+      print("url get"+AppConstants.allStreamers);
       var response = await http
-          .get(Uri.parse(AppConstants.allStreamers))
+          .get(Uri.parse(AppConstants.allStreamers),headers: headers)
           .timeout(const Duration(seconds: 10));
+
       res = LiveStreamerModel.fromJson(jsonDecode(response.body));
       return res;
     }
@@ -21,6 +27,7 @@ class LivePageController extends GetxController {
       return timeout;
     }
     on Exception catch (e) {
+      print(e);
       return e;
     }
   }

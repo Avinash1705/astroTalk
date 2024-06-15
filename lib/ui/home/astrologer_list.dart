@@ -1,5 +1,7 @@
+import 'package:astrocom/comman_widgets/profile_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AstrologerList extends StatelessWidget {
   final List<Map<String, dynamic>> astrologers = [
@@ -20,7 +22,9 @@ class AstrologerList extends StatelessWidget {
             title: Text(astrologer['name']),
             subtitle: Text('₹${astrologer['rate']}/min'),
             trailing: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.to(() => ProfileScreen());
+              },
               child: Text('Chat'),
             ),
           ),

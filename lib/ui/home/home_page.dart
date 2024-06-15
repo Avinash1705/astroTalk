@@ -1,6 +1,8 @@
 import 'package:astrocom/ui/home/live_images_page.dart';
+import 'package:astrocom/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import '../../comman_widgets/AppDrawer.dart';
 import 'SectionHeader.dart';
 import 'astrologer_list.dart';
@@ -13,7 +15,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.yellow,
-        title: Text('Astrotalk', style: TextStyle(color: Colors.black)),
+        title: Text(AppConstants.cookies, style: TextStyle(color: Colors.black)),
         actions: [
           Icon(Icons.account_balance_wallet, color: Colors.black),
           SizedBox(width: 8),
@@ -132,7 +134,7 @@ class HomePage extends StatelessWidget {
       children: [
         Icon(iconData, size: 40, color: Colors.black),
         SizedBox(height: 8),
-        Text(label, textAlign: TextAlign.center),
+        Flexible(child: Text(label, textAlign: TextAlign.center)),
       ],
     );
   }

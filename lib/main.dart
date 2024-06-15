@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: AppTheme.myTheme(),
       getPages: AppRoutes.routes,
-      initialRoute: "/verify",
+      initialRoute: "/",
     );
   }
 }

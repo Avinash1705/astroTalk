@@ -17,12 +17,15 @@ class LiveStreamingController extends GetxController {
 
   Future<LiveStreamingModel> createStreamer() async {
     try {
+      Map<String ,String> headers = {
+        "Cookie":AppConstants.cookies,
+        "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+      };
       var res = await http
           .post(Uri.parse(
-              "${AppConstants.addStreamers}?userId=${liveUserId.text}&firstName=${liveUserName.text}&liveId=${liveId.text}"))
+              "${AppConstants.addStreamers}?userId=${liveUserId.text}&firstName=${liveUserName.text}&liveId=${liveId.text}"),headers: headers)
           .timeout(Duration(seconds: 10));
       liveStreamingModel = LiveStreamingModel.fromJson(jsonDecode(res.body));
-      print("kkkk   createSteaner");
     } catch (e) {
       print(e);
     }
@@ -31,14 +34,17 @@ class LiveStreamingController extends GetxController {
 
 //remove
   Future<RemoveStreamingModel> removeLiveStreamer(String liveId) async {
+    Map<String ,String> headers = {
+      "Cookie":AppConstants.cookies,
+      "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+    };
     try {
       var res = await http
           .post(Uri.parse(
-              "${AppConstants.deleteStreamers}?userId=$liveId"))
+              "${AppConstants.deleteStreamers}?userId=$liveId"),headers: headers)
           .timeout(Duration(seconds: 10));
       removeStreamingModel =
           RemoveStreamingModel.fromJson(jsonDecode(res.body));
-      print("kkkk   removeSteaner");
     } catch (e) {
       print(e);
     }

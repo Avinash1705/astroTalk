@@ -21,8 +21,11 @@ class SplashPage extends StatelessWidget {
             height: 250,
             child: Column(
               children: [
-                Image.asset("assets/images/astro_star.png", width: double.maxFinite,
-                  height: 100,),
+                Hero(
+                  tag: "splash_icon",
+                  child: Image.asset("assets/images/astro_star.png", width: double.maxFinite,
+                    height: 100,),
+                ),
                 SizedBox(height: 50,),
                 Text("Welcome to Astro App"),
               ],
