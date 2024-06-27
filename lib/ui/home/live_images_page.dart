@@ -30,7 +30,7 @@ class LiveImageName extends StatelessWidget {
             child: Image.asset("assets/images/user${position}.png"),
           ),
           SmallText(
-            text: "user${}",
+            text: "user${position}",
           )
         ],
       ),

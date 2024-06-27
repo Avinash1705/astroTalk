@@ -32,7 +32,7 @@ class AppRoutes {
   static String getPoojaPage() => "$poojaPage";
   static String getTestPage() => "$testPage";
   static String getBottomNavPage(int selection) => "$homeBottomNavPage?selectionPage=$selection";
-  static String getVerifyOtpPage(String otp) => "$verifyOtpPage?otpParameter=$otp";
+  static String getVerifyOtpPage(String otp,String otpFirebase) => "$verifyOtpPage?otpParameter=$otp&&$verifyOtpPage?otpFirebase";
 
   //List for routes
   static List<GetPage> routes = [
@@ -49,7 +49,8 @@ class AppRoutes {
     }),
     GetPage(name: verifyOtpPage, page: () {
       var otp = Get.parameters['otpParameter'];
-      return VerifyOtp(otpParameter:otp);
+      var otpFirebase = Get.parameters['otpFirebase'];
+      return VerifyOtp(otpParameter: otp!, otpFirebase: otpFirebase!,);
     }),
   ];
 }

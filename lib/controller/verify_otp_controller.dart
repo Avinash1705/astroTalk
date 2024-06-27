@@ -22,6 +22,9 @@ class OtpVerifyController extends GetxController {
      urOtp =  con1.text+con2.text+con3.text+con4.text;
      // update();
   }
+  getOtp(){
+    return urOtp;
+  }
   bool verifyOtp(int randomOtp){
     print("test $randomOtp $urOtp");
     if(randomOtp == int.parse(urOtp)){

@@ -3,13 +3,14 @@ import 'package:astrocom/routes/app_routes.dart';
 import 'package:astrocom/utils/app_colors.dart';
 import 'package:astrocom/utils/constants.dart';
 import 'package:astrocom/utils/dimensions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 class LoginPage extends StatelessWidget {
-    String _number = '';
+  String _number = '';
 
   @override
   Widget build(BuildContext context) {
@@ -51,11 +52,13 @@ class LoginPage extends StatelessWidget {
                 CountryCodePicker(),
                 Expanded(
                   child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
-                      hintText: 'Phone number',
-                    ),
-                    keyboardType: TextInputType.phone,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(15))),
+                        hintText: 'Phone number',
+                      ),
+                      keyboardType: TextInputType.phone,
                       controller: loginController.number
                   ),
                 ),
@@ -63,11 +66,27 @@ class LoginPage extends StatelessWidget {
             ),
             SizedBox(height: Dimensions.height20),
             ElevatedButton(
-              onPressed: () {
-                _number = loginController.number.text;
-                loginController.verifyNumber();
+              onPressed: () async {
+                // _number = loginController.number.text;
+                await loginController.verifyNumber();
+                // await FirebaseAuth.instance.verifyPhoneNumber(
+                //   phoneNumber: '+919452736170',
+                //   verificationCompleted: (PhoneAuthCredential credential) {
+                //     print("rawat completed $credential");
+                //   },
+                //   verificationFailed: (FirebaseAuthException e) {
+                //     print("rawat failed$e");
+                //   },
+                //   codeSent: (String verificationId, int? resendToken) {
+                //     print("rawat codeSend$verificationId  $resendToken");
+                //     Get.toNamed(AppRoutes.getVerifyOtpPage(verificationId));
+                //   },
+                //   codeAutoRetrievalTimeout: (String verificationId) {
+                //     print("rawat codeAutoRetrieval $verificationId");
+                //   },
+                // );
                 // Handle OTP generation
-                Get.toNamed(AppRoutes.getVerifyOtpPage(_number));
+
               },
               child: Text('GET OTP'),
               style: ElevatedButton.styleFrom(
@@ -113,9 +132,10 @@ class _CountryCodePickerState extends State<CountryCodePicker> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: Dimensions.width30 * 3 +Dimensions.width15,
+      width: Dimensions.width30 * 3 + Dimensions.width15,
       height: Dimensions.height30 * 2,
-      padding: EdgeInsets.symmetric(horizontal: Dimensions.width10, vertical: Dimensions.height10/2),
+      padding: EdgeInsets.symmetric(
+          horizontal: Dimensions.width10, vertical: Dimensions.height10 / 2),
       decoration: BoxDecoration(
         border: Border.all(),
         borderRadius: BorderRadius.circular(Dimensions.height15),
@@ -124,14 +144,14 @@ class _CountryCodePickerState extends State<CountryCodePicker> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-        Image.asset(
-                                          "assets/images/india.png",
-                                          width: Dimensions.width20,
-                                          height: Dimensions.height20,
-                                        ),
-                                        SizedBox(
-                                          width: Dimensions.width30/3,
-                                        ),
+            Image.asset(
+              "assets/images/india.png",
+              width: Dimensions.width20,
+              height: Dimensions.height20,
+            ),
+            SizedBox(
+              width: Dimensions.width30 / 3,
+            ),
             DropdownButton<String>(
               value: _selectedItem,
               onChanged: (String? newValue) {
@@ -164,7 +184,7 @@ class InfoColumn extends StatelessWidget {
     return RichText(
       text: TextSpan(
         style: TextStyle(
-          fontSize: Dimensions.fonts20 /2,
+          fontSize: Dimensions.fonts20 / 2,
           color: AppColors.mainBlackColor,
         ),
         children: <TextSpan>[

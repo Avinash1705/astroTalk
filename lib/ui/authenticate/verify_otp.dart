@@ -6,29 +6,32 @@ import 'package:astrocom/controller/verify_otp_controller.dart';
 import 'package:astrocom/notification_service/local_notification.dart';
 import 'package:astrocom/routes/app_routes.dart';
 import 'package:astrocom/utils/app_colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../comman_widgets/toast_message.dart';
 
 class VerifyOtp extends StatelessWidget {
-  String? otpParameter;
-  var randomOtp;
+  String otpParameter;
+  String otpFirebase;
+  // var randomOtp;
+  // String verificationId;
 
-  VerifyOtp({Key? key, this.otpParameter}) : super(key: key);
+  VerifyOtp({Key? key, required this.otpParameter/*,required this.verificationId*/,required this.otpFirebase}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     OtpVerifyController verifyController = Get.find<OtpVerifyController>();
-    Timer(Duration(seconds: 5), () {
-       randomOtp = Random().nextInt(10000);
-      LocalNotification.showSimpleNotification(title: "Otp", body: randomOtp.toString(), payload: "payload");
-      // You can update the UI or call any function here
-      // setState(() {
-      //   // Example: update a variable
-      //   _message = 'Code executed after 5 seconds';
-      // });
-    });
+    // Timer(Duration(seconds: 5), () {
+    //    randomOtp = Random().nextInt(10000);
+    //   LocalNotification.showSimpleNotification(title: "Otp", body: randomOtp.toString(), payload: "payload");
+    //   // You can update the UI or call any function here
+    //   // setState(() {
+    //   //   // Example: update a variable
+    //   //   _message = 'Code executed after 5 seconds';
+    //   // });
+    // });
     return Scaffold(
       appBar: AppBar(
           title: Text(
@@ -71,8 +74,17 @@ class VerifyOtp extends StatelessWidget {
               ],
             ),
             InkWell(
-              onTap: () {
-                verifyController.verifyOtp(randomOtp)?
+              onTap: () async{
+               //  try{
+               //    PhoneAuthCredential credentials = await PhoneAuthProvider.credential(verificationId: otpParameter, smsCode: verifyController.getOtp());
+               // FirebaseAuth.instance.signInWithCredential(credentials).then((onValue){
+               //      Get.toNamed(AppRoutes.getBottomNavPage(1));
+               //    });
+               //  }
+               //      catch(ex){
+               //    print("rawat exception $ex");
+               //      }
+                verifyController.verifyOtp(int.parse(otpFirebase))?
                 Get.toNamed(AppRoutes.getBottomNavPage(1)):ToastMessage.toastMessage;
               },
               child: Container(
